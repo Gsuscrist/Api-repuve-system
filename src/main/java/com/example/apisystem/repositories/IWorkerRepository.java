@@ -10,4 +10,5 @@ public interface IWorkerRepository extends JpaRepository<Worker, Long> {
 
     @Query(value = "select w.* from  workers  w where w.email=:email and w.password=:password", nativeQuery = true)
     Worker workerSignIn(String email, String password);
+
 }

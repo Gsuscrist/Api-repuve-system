@@ -40,7 +40,6 @@ public class VehicleController {
         return page;
     }
 
-
     @PostMapping
     public ResponseEntity<BaseResponse> create(@RequestBody CreateVehicleRequest request){
         BaseResponse baseResponse = service.create(request);
