@@ -1,17 +1,12 @@
 package com.example.apisystem.security;
 
-
-import java.util.Collection;
-import java.util.Collections;
-
 import com.example.apisystem.entities.Worker;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
-
-import lombok.AllArgsConstructor;
-
+import java.util.Collection;
+import java.util.Collections;
 
 @AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
@@ -52,10 +47,7 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    public String getName() {
+    public String getName(){
         return worker.getName();
     }
-
 }
-

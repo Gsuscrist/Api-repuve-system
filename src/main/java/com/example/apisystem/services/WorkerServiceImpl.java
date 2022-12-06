@@ -6,13 +6,17 @@ import com.example.apisystem.controllers.dtos.responses.BaseResponse;
 import com.example.apisystem.controllers.dtos.responses.GetWorkerResponse;
 import com.example.apisystem.entities.Worker;
 import com.example.apisystem.repositories.IWorkerRepository;
+import com.example.apisystem.security.UserDetailsImpl;
 import com.example.apisystem.services.interfaces.IWorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WorkerServiceImpl implements IWorkerService {
+public class WorkerServiceImpl implements IWorkerService , UserDetailsService {
     @Autowired
     private IWorkerRepository repository;
 
@@ -103,5 +107,11 @@ public class WorkerServiceImpl implements IWorkerService {
 
     private GetWorkerResponse from(Long id){
         return repository.findById(id).map(this::from).orElseThrow(()->new RuntimeException("Worker do not exist"));
+    }
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Worker worker = repository.findOneByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("el usuario con email no encontrado"));
+        return new UserDetailsImpl(worker);
     }
 }
