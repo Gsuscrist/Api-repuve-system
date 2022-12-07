@@ -49,7 +49,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = TokenUtils.createToken(userDetails.getName(), userDetails.getUsername());
 
         response.addHeader("Authorization", "Bearer " + token);
-        response.addHeader("Cache-Control", token);
 
         response.getWriter().flush();
 
